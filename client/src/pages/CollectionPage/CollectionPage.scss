@@ -1,0 +1,36 @@
+.collection-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.collection-header{
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.collection-items{
+    display: flex;
+    flex-wrap: wrap;
+    .collection-item{
+        width: 25%;
+        padding: 0px 35px 0 0px;
+        margin-bottom: 45px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .collection-items{
+        .collection-item{
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+    .collection-items{
+        .collection-item{
+            width: 50%;
+        }
+    }
+}

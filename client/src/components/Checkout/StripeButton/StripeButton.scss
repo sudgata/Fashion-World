@@ -1,0 +1,12 @@
+.payment-button{
+    line-height: 38px;
+    font-size: 22px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .payment-button{
+        line-height: 32px;
+        font-size: 18px;
+    }
+}

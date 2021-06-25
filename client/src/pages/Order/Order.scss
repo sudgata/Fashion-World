@@ -1,0 +1,22 @@
+.order-header{
+    font-size: 35px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.order-container{
+    margin: 25px auto 0px auto;
+    display: flex;
+    flex-direction: column;
+    width: 62%;
+    overflow: visible;
+    margin-bottom: 90px;
+    //min-height: 460px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .order-container{
+        width: 85%;
+    }
+}

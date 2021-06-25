@@ -1,0 +1,68 @@
+.checkoutitem-container{
+    display: flex;
+    height: 135px;
+    margin-bottom: 10px;
+    background-color: rgb(252, 246, 246);
+}
+
+.checkout-img{
+    width: 20%;
+    padding: 8px;
+}
+
+.checkout-product{
+    width: 80%;
+    padding: 10px;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-product-details{
+    display: flex;
+    flex-direction: column;
+}
+
+.remove-item{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: goldenrod;
+}
+
+.decrease-item-quantity{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(243, 13, 13);
+    cursor: pointer;
+}
+
+.increase-item-quantity{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(8, 192, 8);
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .checkoutitem-container{
+        height: 110px;
+        margin-bottom: 5px;
+    }
+    .checkout-img{
+        width: 30%;
+    }
+    .checkout-product{
+        width: 70%;
+        font-size: 16px;
+    }
+    .remove-item{
+        font-size: 20px;
+    }
+    .decrease-item-quantity, .increase-item-quantity{
+        font-size: 21px;
+    }
+}
