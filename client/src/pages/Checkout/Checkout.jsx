@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import CheckoutItem from '../../components/Checkout/CheckoutItem/CheckoutItem';
@@ -8,20 +8,32 @@ import { processPaymennt } from '../../api/payment-api';
 import './Checkout.scss';
 import { selectCurrentUser } from '../../redux/selectors/userSelectors';
 import { createOrder } from '../../api/order-api';
+import Spinner from '../../components/Common/Spinner/Spinner';
+import { setCartItems } from '../../redux/actions/cartAction';
+import { clearAllCart } from '../../api/cart-api';
 
-const Checkout = ({ cartItems, totalPrice, currentUser, history }) => {
+const Checkout = ({ cartItems, totalPrice, currentUser, history, setCartItems }) => {
+
+    const [loading, setLoading] = useState(false);
+    const [spinnerText, setSpinnerText] = useState("");
 
     const handlePaymentAndOrder = async(token, amount) =>{
 
         try{
+            setLoading(true);
+            setSpinnerText("Processing Payment...");
             const paymentResponse =await pay(token, amount);
-            //console.log(paymentResponse);
-            alert("Your Payment is successful!");
-            const orderResponse = await createOrder(paymentResponse?.strRes, totalPrice, cartItems, currentUser?.uid);
-            console.log(orderResponse);
+            setSpinnerText("Creating Order...");
+            await createOrder(paymentResponse?.strRes, totalPrice, cartItems, currentUser?.uid);
+            const modifiedCartItems = await clearAllCart(currentUser?.uid);
+            setCartItems(modifiedCartItems);
+            setSpinnerText("");
+            setLoading(false);
+            history.push('/orders');
 
         }
         catch(err){
+            setLoading(false);
             alert(err);
         }
 
@@ -35,6 +47,10 @@ const Checkout = ({ cartItems, totalPrice, currentUser, history }) => {
         catch(err){
             throw new Error(`Payment Failed!" \n ${err}`);
         }
+    }
+
+    if(loading){
+        return <Spinner text={spinnerText}/>
     }
 
     return (
@@ -88,4 +104,9 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = (dispatch) => ({
+    setCartItems : (cartitems) => dispatch(setCartItems(cartitems))
+
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

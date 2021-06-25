@@ -44,3 +44,18 @@ export const removeItemToCart = async (userId, productId, clear) =>{
         console.log(err);
     }
 }
+
+export const clearAllCart = async (userId) =>{
+    if(!userId) return;
+    try{
+        let headers = await createheaders();
+        const body = {
+            userId
+        }
+        let { data: cartItems } = await axios.post(`${baseUrl}/clearAll`,body,{ headers: headers});
+        return cartItems;
+    }
+    catch(err){
+        console.log(err);
+    }
+}

@@ -1,29 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import OrderItem from '../../components/Order/OrderItem/OrderItem';
 import { getOrdersForUser } from '../../api/order-api';
 import './Order.scss';
 import { selectCurrentUser } from '../../redux/selectors/userSelectors';
+import Spinner from '../../components/Common/Spinner/Spinner';
 
-const Order = ({ currentUser }) => {
+const Order = ({ currentUser, history }) => {
+    const [loading, setLoading] = useState(true);
+    const [orders, setOrders] = useState([]);
     useEffect(()=>{
         const fetchOrders = async() =>{
-            const orders= await getOrdersForUser(currentUser?.uid);
-            console.log(orders);
+            try{
+                setLoading(true);
+                const orders= await getOrdersForUser(currentUser?.uid); 
+                if(orders) setOrders(orders);
+                setLoading(false);
+            }
+            catch(err){
+                console.log(err);
+                setLoading(false);
+            }
         }
-        fetchOrders();
-    },[currentUser.uid])
-    return (
-        <div>
-            <div className='order-header'>
-                Orders
+        if(currentUser?.uid)
+            fetchOrders();
+    },[currentUser?.uid])
+
+    return(
+        <React.Fragment>
+            <div>
+                <div className='order-header'>
+                    Orders
+                </div>
+                {
+                    loading ? <Spinner/> :
+                    (
+                        orders.length === 0 && !loading ? (
+                            <div className='no-order-item'>
+                                <span>No orders found. Please shop to continue.</span>
+                                <div>
+                                    <button type='button' className='shop-button' onClick={()=>history.push('/')}>Continue Shopping</button>
+                                </div>
+                            </div> 
+                        ) :
+                        (<div className='order-container'>
+                            {
+                                orders.map((order)=>(
+                                    <OrderItem key={order.id} order={order}/>
+                                ))
+                            }
+                        </div>)
+                    )
+                }
             </div>
-            <div className='order-container'>
-                <OrderItem key='1'/>
-                <OrderItem key='2'/>
-                <OrderItem key='3'/>
-            </div>
-        </div>
+        </React.Fragment>
     );
 };
 const mapStateToProps = (state) => ({

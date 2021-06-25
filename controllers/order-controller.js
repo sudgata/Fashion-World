@@ -31,9 +31,9 @@ exports.getOrdersForUser = async (req, res)=> {
     const userId = req.params.uid;
     try{
         const orders = await Order.find({user: userId})
-                            //.populate('user')
-                            .populate('orderItems.product')
-                            .exec();
+                                  .sort({createdAt: -1})
+                                  .populate('orderItems.product')
+                                  .exec();
 
         return res.status(200).send(orders);
     }

@@ -41,7 +41,7 @@ exports.addItem = async (req,res) =>{
 }
 
 
-exports.addItemToCart = async (req,res) =>{
+exports.addItemToCart = async (req,res) => {
     const { userId, productId } = req.body;
     try{
         const product = await findProductbyId(productId);
@@ -81,7 +81,7 @@ exports.addItemToCart = async (req,res) =>{
 }
 
 
-exports.removeItemFromCart = async (req,res) =>{
+exports.removeItemFromCart = async (req,res) => {
 
     const { userId, productId, clear } = req.body;
     //const isClear = (clear === 'true');
@@ -120,6 +120,23 @@ exports.removeItemFromCart = async (req,res) =>{
             return res.status(500).send("User not found!");
         }
 
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+
+}
+
+exports.clearCart = async (req,res) => {
+    const { userId } = req.body;
+    try{
+        const updatedUser = await User.findOneAndUpdate(
+            {_id: userId},
+            {$set: { cartItems: [] }},
+            {new: true}
+        );
+        return res.status(200).send(updatedUser.cartItems);
     }
     catch(err){
         console.log(err);

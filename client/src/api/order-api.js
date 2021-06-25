@@ -46,7 +46,7 @@ export const createOrder = async (paymentResponse, totalPrice, cartItmes, userId
     }
     catch(err){
         console.error(err);
-        throw "Order Creation Failed " + err.response;
+        throw new Error("Order Creation Failed " + err.message);
     }
 }
 
