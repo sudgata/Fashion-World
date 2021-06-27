@@ -9,13 +9,13 @@ import SignUp from './pages/SignUp/SignUp';
 import { auth } from './firebase/firebase.util';
 import { addUser } from './api/user-api';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/actions/userAction';
+import { setCurrentUser, setUserLoaded } from './redux/actions/userAction';
 import { selectCurrentUser, selectUserLoaded } from './redux/selectors/userSelectors';
 import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/actions/cartAction';
 import Order from './pages/Order/Order';
 
-const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded }) => {
+const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded, setUserLoaded }) => {
 
   useEffect(() => {
     const unsubscribeFromAuth= auth.onAuthStateChanged(async (user)=>{
@@ -24,8 +24,10 @@ const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded }) => {
         if(uid && email && displayName){
           const userResponse = await addUser({ uid, email, displayName});
           setCurrentUser(userResponse);
-          if(userResponse.cartItems.length > 0)
+          if(userResponse.cartItems.length > 0){
             setCartItems(userResponse.cartItems)
+          }
+          setUserLoaded(true);
         }
         else
           setCurrentUser({ uid, email, displayName });
@@ -38,7 +40,7 @@ const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded }) => {
     return ()=>{
       unsubscribeFromAuth();
     }
-  },[setCurrentUser,setCartItems]);
+  },[setCurrentUser,setCartItems,setUserLoaded]);
 
   return (
     <div>
@@ -75,7 +77,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentUser : (user) => dispatch(setCurrentUser(user)),
-    setCartItems : (cartitems) => dispatch(setCartItems(cartitems))
+    setCartItems : (cartitems) => dispatch(setCartItems(cartitems)),
+    setUserLoaded: (isLoaded) => dispatch(setUserLoaded(isLoaded))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
