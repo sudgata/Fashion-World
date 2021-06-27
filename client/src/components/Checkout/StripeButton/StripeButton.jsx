@@ -36,6 +36,7 @@ const StripeButton = ({ price, handlePaymentAndOrder }) => {
                 billingAddress
                 shippingAddress
                 description={`your total price to pay is ₹${price}`}
+                currency="INR" 
                 amount={priceForStripe}
                 panelLabel='Pay Now'
                 stripeKey={publishableKey}

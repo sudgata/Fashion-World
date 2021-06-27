@@ -26,13 +26,17 @@ input{
     margin-top: 10px;
 }
 
-.submit-button{
+.signup-submit-button{
     width: 100%;
     line-height: 48px;
     margin-bottom: 10px;
     font-size: 22px;
     font-weight: bolder;
     border: none;
+}
+
+.signup-submit-button:disabled{
+    background-color: rgb(119, 114, 114);
 }
 
 .underline-anchor{

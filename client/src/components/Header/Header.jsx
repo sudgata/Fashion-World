@@ -8,8 +8,9 @@ import CartDropdown from './CartDropdown/CartDropdown';
 import { selectCurrentUser } from '../../redux/selectors/userSelectors';
 import { selectCartHidden } from '../../redux/selectors/cartSelectors';
 import { createStructuredSelector } from 'reselect';
+import { setUserLoaded } from '../../redux/actions/userAction';
 
-const Header = ({ currentUser, hidden, history }) => {
+const Header = ({ currentUser, hidden, history, setUserLoaded }) => {
     return (
         <div className='header-container'>
             <Link to='/' className='app-title'>
@@ -21,6 +22,7 @@ const Header = ({ currentUser, hidden, history }) => {
                     currentUser ?
                     (<div className='header-menu' onClick={async ()=>{
                         await auth.signOut();
+                        setUserLoaded(false);
                         history.push('/login');
                         }}>
                         LOG OUT
@@ -42,4 +44,10 @@ const mapStateToProps = createStructuredSelector({
     hidden: selectCartHidden
 });
 
-export default withRouter(connect(mapStateToProps)(Header));
+const mapDispathToProps= (dispatch)=>{
+    return{
+        setUserLoaded: (isLoaded)=>dispatch(setUserLoaded(isLoaded))
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispathToProps)(Header));

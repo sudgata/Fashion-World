@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.util';
 import { addUser } from '../../api/user-api';
 import './SignUp.scss';
 import { connect } from 'react-redux';
-import { setCurrentUser } from '../../redux/actions/userAction';
+import { setCurrentUser, setUserLoaded } from '../../redux/actions/userAction';
+import CustomSpinner from '../../components/Common/CustomSpinner/CustomSpinner';
 
-const SignUp = ({ setCurrentUser }) => {
-
+const SignUp = ({ setCurrentUser, setUserLoaded }) => {
+    const [loading, setLoading] = useState(false);
     const [signUpData, setSignUpData] = useState({
         name: '',
         email: '',
@@ -16,6 +17,7 @@ const SignUp = ({ setCurrentUser }) => {
     });
 
     const { name, email, password , confirmPassword} = signUpData;
+    const history = useHistory();
 
     const handleSubmit =async (event) =>{
         event.preventDefault();
@@ -26,6 +28,7 @@ const SignUp = ({ setCurrentUser }) => {
         }
 
         try{
+            setLoading(true);
             await auth.createUserWithEmailAndPassword(email, password);
             setSignUpData({
                 name: '',
@@ -43,6 +46,9 @@ const SignUp = ({ setCurrentUser }) => {
             }
             await addUser(userReq);
             setCurrentUser(userReq);
+            setLoading(false);
+            setUserLoaded(true);
+            history.push('/');
         }
         catch(err){
             console.log(err);
@@ -69,7 +75,9 @@ const SignUp = ({ setCurrentUser }) => {
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input type="password" name="confirmPassword" id="confirmPassword "  value={confirmPassword} onChange={handleChange} required/>
             <div className="signup-footer">
-                <button  type="submit" className="submit-button">Register</button>
+                <button  type="submit" className="signup-submit-button" disabled={loading}>
+                {loading ? <CustomSpinner />: <span>Register</span>}
+                </button>
                 <span style={{fontSize:"22px"}}>Already have an Account ? Login <Link  className="underline-anchor" to='/login'>here</Link></span>
             </div>
         </div>
@@ -81,7 +89,8 @@ const SignUp = ({ setCurrentUser }) => {
 
 const mapDispathToProps= (dispatch)=>{
     return{
-        setCurrentUser: (user) =>dispatch(setCurrentUser(user))
+        setCurrentUser: (user) =>dispatch(setCurrentUser(user)),
+        setUserLoaded: (isLoaded)=>dispatch(setUserLoaded(isLoaded))
     }
 }
 

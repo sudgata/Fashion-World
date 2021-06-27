@@ -3,6 +3,8 @@ import { cartActionTypes } from '../types/cartTypes';
 
 const INITIAL_STATE= {
     hidden: true,
+    loading: false,
+    error: false,
     cartItems: []
 }
 
@@ -17,6 +19,8 @@ const cartReducer =(state = INITIAL_STATE, action)=>{
         case cartActionTypes.SET_CARTITEMS:
             return {
                 ...state,
+                loading: false,
+                error: false,
                 cartItems: payload
             }
         // case cartActionTypes.ADD_ITEM:
@@ -26,7 +30,8 @@ const cartReducer =(state = INITIAL_STATE, action)=>{
         //     }
         case cartActionTypes.ADD_ITEM:
             return {
-                ...state
+                ...state,
+                loading: true
             }
         // case cartActionTypes.REMOVE_ITEM:
         //     return {
@@ -35,7 +40,8 @@ const cartReducer =(state = INITIAL_STATE, action)=>{
         //     }
         case cartActionTypes.REMOVE_ITEM:
             return {
-                ...state
+                ...state,
+                loading: true
             }
         // case cartActionTypes.CLEAR_ITEM_FROM_CART:
         //     return {
@@ -44,7 +50,14 @@ const cartReducer =(state = INITIAL_STATE, action)=>{
         //     }
         case cartActionTypes.CLEAR_ITEM_FROM_CART:
             return {
-                ...state
+                ...state,
+                loading: true
+            }
+        case cartActionTypes.CART_CHANGE_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: true
             }
         default:
             return state;

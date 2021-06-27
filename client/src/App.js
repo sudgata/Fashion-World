@@ -10,12 +10,12 @@ import { auth } from './firebase/firebase.util';
 import { addUser } from './api/user-api';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/actions/userAction';
-import { selectCurrentUser } from './redux/selectors/userSelectors';
+import { selectCurrentUser, selectUserLoaded } from './redux/selectors/userSelectors';
 import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/actions/cartAction';
 import Order from './pages/Order/Order';
 
-const App = ({ currentUser, setCurrentUser, setCartItems }) => {
+const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded }) => {
 
   useEffect(() => {
     const unsubscribeFromAuth= auth.onAuthStateChanged(async (user)=>{
@@ -48,11 +48,11 @@ const App = ({ currentUser, setCurrentUser, setCartItems }) => {
         <Route path='/shop' component={ShopPage}></Route>
         <Route exact path='/checkout' component={Checkout}></Route>
         <Route exact path='/login' render={()=>
-        currentUser ? 
+        userLoaded ? 
         (<Redirect to='/'/>):
         (<Login/>)}></Route>
         <Route exact path='/signup' render={()=>
-        currentUser ?
+        userLoaded ?
         (<Redirect to='/'/>):
         (<SignUp/>)}></Route>
         
@@ -67,7 +67,8 @@ const App = ({ currentUser, setCurrentUser, setCartItems }) => {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: selectCurrentUser(state)
+  currentUser: selectCurrentUser(state),
+  userLoaded: selectUserLoaded(state)
 });
 
 

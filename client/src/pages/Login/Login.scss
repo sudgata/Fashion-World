@@ -33,6 +33,11 @@ input{
     font-size: 22px;
     font-weight: bolder;
     border: none;
+    padding: 5px;
+}
+
+.disabled-submit-button{
+    background-color: rgb(119, 114, 114);
 }
 
 .google-signin-button{

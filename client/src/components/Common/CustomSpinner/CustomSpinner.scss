@@ -1,0 +1,26 @@
+.custom-spinner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-spinner{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgb(158, 156, 156);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 600ms linear infinite;
+    -webkit-animation: spin 600ms linear infinite;
+    @keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+    }
+    @-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+    }
+}

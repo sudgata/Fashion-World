@@ -86,7 +86,7 @@ const Checkout = ({ cartItems, totalPrice, currentUser, history, setCartItems })
                 cartItems.length ? (
                     <div className='total-price-container'>
                         <div className='total-price-flex'>
-                            <span>TOTAL:${totalPrice}</span>
+                            <span>TOTAL:₹{totalPrice}</span>
                             <StripeButton price={totalPrice} handlePaymentAndOrder={handlePaymentAndOrder}/>
                         </div>
                     </div> 

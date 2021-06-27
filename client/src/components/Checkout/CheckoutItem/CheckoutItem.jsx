@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addItem, removeItem, clearItemFromCart } from '../../../redux/actions/cartAction';
+import { selectCartLoading } from '../../../redux/selectors/cartSelectors';
 import { selectCurrentUser } from '../../../redux/selectors/userSelectors'
 import './CheckoutItem.scss'
 
-const CheckoutItem = ({ item, dispatch, currentUser }) => {
+const CheckoutItem = ({ item, dispatch, currentUser, loading }) => {
     return (
         <div>
             <div className='checkoutitem-container'>
@@ -12,11 +13,19 @@ const CheckoutItem = ({ item, dispatch, currentUser }) => {
             <div className='checkout-product'>
                 <div className='checkout-product-details'>
                     <span>{item.product.name}</span>
-                    <span>${item.product.price}</span>
+                    <span>₹{item.product.price}</span>
                     <div>
-                        <span className='decrease-item-quantity' onClick={()=>dispatch(removeItem(currentUser?.uid, item?.product?.id))}>-  </span>
-                        <span style={{fontSize: '22px'}}>{item.quantity}</span>
-                        <span className='increase-item-quantity' onClick={()=>dispatch(addItem(currentUser?.uid, item?.product?.id))}>  +</span>
+                        <button type='button' className='plus-minus-button-loading plus-minus-button' disabled={loading}
+                         onClick={()=>dispatch(removeItem(currentUser?.uid, item?.product?.id))}
+                        >
+                            <span className='decrease-item-quantity'>-</span>
+                        </button>
+                        <span style={{fontSize: '25px'}}>{item.quantity}</span>
+                        <button type='button' className='plus-minus-button-loading plus-minus-button' disabled={loading}
+                         onClick={()=>dispatch(addItem(currentUser?.uid, item?.product?.id))}
+                        >
+                            <span className='increase-item-quantity'>+</span>
+                        </button>
                     </div>
                 </div>
                 <div className='remove-item'>
@@ -31,7 +40,8 @@ const CheckoutItem = ({ item, dispatch, currentUser }) => {
 };
 
 const mapStateToProps = (state) => ({
-    currentUser: selectCurrentUser(state)
+    currentUser: selectCurrentUser(state),
+    loading: selectCartLoading(state)
 });
 
 export default connect(mapStateToProps)(CheckoutItem);

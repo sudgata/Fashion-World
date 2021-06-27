@@ -26,7 +26,7 @@ const CollectionPage = ( {location} ) => {
     else{
     return (
         <div className='collection-container'>
-            <h2 className='collection-header'>{ title }</h2>
+            <h2 className='collection-header'>{ title?.toUpperCase() }</h2>
             <div className='collection-items'>
                 {
                     products.map(product=>(

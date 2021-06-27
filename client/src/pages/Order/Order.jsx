@@ -24,6 +24,8 @@ const Order = ({ currentUser, history }) => {
         }
         if(currentUser?.uid)
             fetchOrders();
+        else
+            setLoading(false);
     },[currentUser?.uid])
 
     return(
