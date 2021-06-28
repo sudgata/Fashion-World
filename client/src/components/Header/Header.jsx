@@ -22,7 +22,6 @@ const Header = ({ currentUser, hidden, history, setUserLoaded }) => {
                     currentUser ?
                     (<div className='header-menu' onClick={async ()=>{
                         await auth.signOut();
-                        setUserLoaded(false);
                         history.push('/login');
                         }}>
                         LOG OUT

@@ -14,6 +14,8 @@ import { selectCurrentUser, selectUserLoaded } from './redux/selectors/userSelec
 import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/actions/cartAction';
 import Order from './pages/Order/Order';
+import PrivateRoute from './routes/PrivateRoute';
+import RestrictedRoute from './routes/RestrictedRoute';
 
 const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded, setUserLoaded }) => {
 
@@ -34,6 +36,7 @@ const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded, setUserLoa
       }
       else{
         setCurrentUser(user);
+        setUserLoaded(true);
         setCartItems([]);
       }
     });
@@ -49,16 +52,19 @@ const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded, setUserLoa
         <Route exact path='/' component={HomePage}></Route>
         <Route path='/shop' component={ShopPage}></Route>
         <Route exact path='/checkout' component={Checkout}></Route>
-        <Route exact path='/login' render={()=>
-        userLoaded ? 
+        {/* <Route exact path='/login' render={()=>
+        currentUser && userLoaded ? 
         (<Redirect to='/'/>):
-        (<Login/>)}></Route>
-        <Route exact path='/signup' render={()=>
-        userLoaded ?
+        (<Login/>)}></Route> */}
+        <RestrictedRoute exact path='/login' component={Login} userLoaded={userLoaded} currentUser={currentUser}/>
+        <RestrictedRoute exact path='/signup' component={SignUp} userLoaded={userLoaded} currentUser={currentUser}/>
+        {/* <Route exact path='/signup' render={()=>
+        currentUser && userLoaded ?
         (<Redirect to='/'/>):
-        (<SignUp/>)}></Route>
+        (<SignUp/>)}></Route> */}
         
-        <Route exact path='/orders' component={Order}></Route>
+        {/* <Route exact path='/orders' component={Order}></Route> */}
+        <PrivateRoute exact path='/orders' component={Order} userLoaded={userLoaded} currentUser={currentUser}/>
 
         <Route path="*">
           <Redirect to="/" />

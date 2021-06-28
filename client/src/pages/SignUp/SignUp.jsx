@@ -30,12 +30,6 @@ const SignUp = ({ setCurrentUser, setUserLoaded }) => {
         try{
             setLoading(true);
             await auth.createUserWithEmailAndPassword(email, password);
-            setSignUpData({
-                name: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            }) ;
             const currentUser = auth.currentUser;
             await currentUser.updateProfile({ displayName: name});
             const updatedUser = auth.currentUser;
@@ -46,11 +40,19 @@ const SignUp = ({ setCurrentUser, setUserLoaded }) => {
             }
             await addUser(userReq);
             setCurrentUser(userReq);
-            setLoading(false);
-            setUserLoaded(true);
+            // setSignUpData({
+            //     name: '',
+            //     email: '',
+            //     password: '',
+            //     confirmPassword: ''
+            // }) ;
+            //setLoading(false);
+            //setUserLoaded(true);
             history.push('/');
         }
         catch(err){
+            setLoading(false);
+            alert(err.message);
             console.log(err);
         }
     }
