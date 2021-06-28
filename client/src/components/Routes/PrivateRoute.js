@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
-import Spinner from '../components/Common/Spinner/Spinner';
+import Spinner from '../Common/Spinner/Spinner';
 
 const PrivateRoute = ( {component: Component, userLoaded, currentUser , ...rest} ) => {
     return (

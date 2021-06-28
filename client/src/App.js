@@ -14,8 +14,8 @@ import { selectCurrentUser, selectUserLoaded } from './redux/selectors/userSelec
 import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/actions/cartAction';
 import Order from './pages/Order/Order';
-import PrivateRoute from './routes/PrivateRoute';
-import RestrictedRoute from './routes/RestrictedRoute';
+import PrivateRoute from './components/Routes/PrivateRoute';
+import RestrictedRoute from './components/Routes/RestrictedRoute';
 
 const App = ({ currentUser, setCurrentUser, setCartItems, userLoaded, setUserLoaded }) => {
 
