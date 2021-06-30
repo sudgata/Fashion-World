@@ -31,11 +31,13 @@ const OrderItem = ({ order }) => {
     return (
         <div>
             <div className='order-item-container' onClick = {toggleExpanded}>
-                <div className='order-details'>
-                    <div className='order-status'>
-                        {isNew && <img className='order-status-img' src={newIcon} alt="no icon" />}
+                <div className='order-details'>                    
+                    <div className= 'order-name-container'>
+                        <div className='order-name'>{name}</div>
+                        <div className='order-status'>
+                            {isNew && <img className='order-status-img' src={newIcon} alt="no icon" />}
+                        </div>
                     </div>
-                    <div className='order-name'>{name}</div>
                     <div className='order-price'>₹{order.totalPrice}</div>
                     <div className='order-time'>  Ordered on: <br/> {orderedDay} </div>
                 </div>

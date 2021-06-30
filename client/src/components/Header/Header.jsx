@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.util';
 import { connect } from 'react-redux';
@@ -9,10 +9,18 @@ import { selectCurrentUser } from '../../redux/selectors/userSelectors';
 import { selectCartHidden } from '../../redux/selectors/cartSelectors';
 import { createStructuredSelector } from 'reselect';
 import { setUserLoaded } from '../../redux/actions/userAction';
+import { ReactComponent as  HamBurgerIcon } from '../../assets/icons/hamburger-icon.svg';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Header = ({ currentUser, hidden, history, setUserLoaded }) => {
+    const [showSidebar, setShowSidebar] = useState(false);
+    const toggleSidebar = () => setShowSidebar(!showSidebar);
     return (
-        <div className='header-container'>
+        <>
+        <Sidebar showSidebar={showSidebar} toggleSidebar={toggleSidebar}/>
+        <div className='header-wrapper'>
+            <HamBurgerIcon className='hamburger-icon' onClick={toggleSidebar}/>
+            <div className='header-container'>
             <Link to='/' className='app-title'>
                 <span className='title-text'>Fashion World</span>
             </Link>
@@ -35,6 +43,8 @@ const Header = ({ currentUser, hidden, history, setUserLoaded }) => {
                 hidden ? null: <CartDropdown/>
             }
         </div>
+        </div>
+        </>
     );
 };
 

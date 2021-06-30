@@ -1,3 +1,9 @@
+.header-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+}
 .header-container{
     width: 100%;
     height: 70px;
@@ -7,7 +13,7 @@
     margin-top: 10px;
 }
 .app-title{
-    margin-left: 80px
+    margin-left: 15px;
 }
 
 .header-menu-container{
@@ -28,19 +34,32 @@
     font-size: 25px;
     cursor: pointer;
 }
+.hamburger-icon{
+    height: 48px;
+    width: 48px;
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 600px) {
     .title-text{
-        font-size: 28px;
+        font-size: 24px;
     }
     .app-title{
-        margin-left: 20px;
+        margin-left: 7px;
     }
     .header-menu-container{
         margin-right: 2px;
     }
     .header-menu{
-        padding-right: 10px;
-        font-size: 17px;
+        padding-right: 8px;
+        font-size: 15px;
+    }
+    .header-wrapper{
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .hamburger-icon{
+        height: 42px;
+        width: 42px;
     }
   }

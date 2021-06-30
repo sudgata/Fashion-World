@@ -22,16 +22,21 @@
 }
 
 .order-status{
-    width: 10%;
+    margin-left: 5px;
 }
 
 .order-status-img{
-    width: 42px;
-    height: 42px;
+    width: 28px;
+    height: 28px;
+}
+
+.order-name-container{
+    width: 60%;
+    display: flex;
 }
 
 .order-name{
-    width: 50%;
+    color: #6034db;
 }
 
 .order-price{

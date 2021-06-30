@@ -1,0 +1,58 @@
+.sidebar-container{
+    height: 100vh;
+    width: 300px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    position: fixed;
+    left: -100%;
+    transition: 800ms;
+    font-size: 1.6rem;
+    ul{
+        list-style: none;
+        padding: 0;
+        li{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0px 8px 15px 15px;
+            transition: background-color 0.3s ease-out;
+        }
+        li:hover{
+            background-color: #fdbf00;
+            cursor: pointer;
+        }
+    }
+    z-index: 1001;
+}
+
+.sidebar-container.active{
+    left: 0;
+    transition: 400ms;
+}
+
+.sidebar-header{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 1.5rem;
+}
+
+.sidebar-close-btn{
+    color: #fdbf00;
+    cursor: pointer;
+}
+
+.overlay{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 500;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-tap-highlight-color: transparent;
+}
