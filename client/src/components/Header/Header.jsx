@@ -28,7 +28,7 @@ const Header = ({ currentUser, hidden, history, setUserLoaded }) => {
                 <Link to='/shop' className='header-menu'>SHOP</Link>
                 {
                     currentUser ?
-                    (<div className='header-menu' onClick={async ()=>{
+                    (<div className='header-logout header-menu' onClick={async ()=>{
                         await auth.signOut();
                         history.push('/login');
                         }}>
@@ -36,7 +36,7 @@ const Header = ({ currentUser, hidden, history, setUserLoaded }) => {
                     </div>):
                     (<Link to='/login' className='header-menu'>LOGIN</Link>)
                 }
-                <Link to='/orders' className='header-menu'>ORDERS</Link>
+                {currentUser && <Link to='/orders' className='header-menu'>ORDERS</Link>}
                 <CartIcon/>
             </div>
             {

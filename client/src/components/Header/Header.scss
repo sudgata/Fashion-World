@@ -40,6 +40,7 @@
     cursor: pointer;
 }
 
+
 @media only screen and (max-width: 600px) {
     .title-text{
         font-size: 24px;
@@ -52,7 +53,7 @@
     }
     .header-menu{
         padding-right: 8px;
-        font-size: 15px;
+        font-size: 19px;
     }
     .header-wrapper{
         padding-left: 8px;
@@ -61,5 +62,8 @@
     .hamburger-icon{
         height: 42px;
         width: 42px;
+    }
+    .header-logout{
+        display: none;
     }
   }

@@ -1,13 +1,13 @@
 .sidebar-container{
     height: 100vh;
-    width: 300px;
+    width: 320px;
     background-color: black;
     color: white;
     font-weight: bold;
     position: fixed;
     left: -100%;
     transition: 800ms;
-    font-size: 1.6rem;
+    font-size: 1.54rem;
     ul{
         list-style: none;
         padding: 0;
@@ -33,14 +33,34 @@
 
 .sidebar-header{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: baseline;
     width: 100%;
     padding: 1.5rem;
+    background-color:#fdbf00;
+    min-height: 120px;
+
+    .sidebar-user{
+        font-size: 1.3rem;
+        color: black;
+        font-weight: bold;
+    }
+    .sidebar-login-button{
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+    }
+    .sidebar-login-button:hover{
+        text-decoration: underline;
+    }
 }
 
+
 .sidebar-close-btn{
-    color: #fdbf00;
+    color:rgb(170, 69, 11);
     cursor: pointer;
+    font-size: 1.8rem;
 }
 
 .overlay{
@@ -55,4 +75,15 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     -webkit-tap-highlight-color: transparent;
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebar-container{
+        width: 270px;
+        ul{
+            li{
+                font-size: 1.4rem;
+            }
+        }
+    }
 }
