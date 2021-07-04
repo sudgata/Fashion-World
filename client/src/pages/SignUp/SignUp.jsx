@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.util';
 import { addUser } from '../../api/user-api';
@@ -18,6 +18,18 @@ const SignUp = ({ setCurrentUser, setUserLoaded }) => {
 
     const { name, email, password , confirmPassword} = signUpData;
     const history = useHistory();
+
+    useEffect(()=>{
+        return ()=>{
+            setSignUpData({
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            }) ;
+            setLoading(false);
+        }
+    },[]);
 
     const handleSubmit =async (event) =>{
         event.preventDefault();
@@ -40,14 +52,6 @@ const SignUp = ({ setCurrentUser, setUserLoaded }) => {
             }
             await addUser(userReq);
             setCurrentUser(userReq);
-            // setSignUpData({
-            //     name: '',
-            //     email: '',
-            //     password: '',
-            //     confirmPassword: ''
-            // }) ;
-            //setLoading(false);
-            //setUserLoaded(true);
             history.push('/');
         }
         catch(err){
